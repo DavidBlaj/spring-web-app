@@ -52,9 +52,6 @@ public class BootstrapData implements CommandLineRunner {
         ericSaved.getBooks().add(bookSaved);
         rodSaved.getBooks().add(someBookSaved);
 
-        authorRepository.save(ericSaved);
-        authorRepository.save(rodSaved);
-
         Publisher amazonBooks = new Publisher();
         amazonBooks.setPublisherName("Amazon Books");
         amazonBooks.setAddress("Schubert Street 33");
@@ -64,9 +61,15 @@ public class BootstrapData implements CommandLineRunner {
 
         Publisher amazonBooksSaved = publisherRepository.save(amazonBooks);
 
-        publisherRepository.save(amazonBooksSaved);
+        bookSaved.setPublisher(amazonBooksSaved);
+        book.setPublisher(amazonBooksSaved);
 
-        System.out.println(amazonBooksSaved.getCity());
+        authorRepository.save(ericSaved);
+        authorRepository.save(rodSaved);
+        bookRepository.save(bookSaved);
+        bookRepository.save(book);
+
+        System.out.println(publisherRepository.count());
 
     }
 }
